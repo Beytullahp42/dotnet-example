@@ -1,0 +1,67 @@
+## Build and Output Directories
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+build/
+dist/
+
+## Visual Studio & Visual Studio Code
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+## JetBrains Rider / ReSharper
+.idea/
+*.DotSettings.user
+_ReSharper*/
+
+## macOS System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+## Windows / Linux System Files
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+## Environment Variables & Secret Configuration
+.env
+.env.*
+!.env.example
+appsettings*.local.json
+secrets.json
+
+## Test Results and Code Coverage
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+coverage/
+*.coverage
+*.coveragexml
+
+## NuGet & Package Caches
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+project.lock.json
+project.assets.json
+
+## Crash & Memory Dumps
+*.dmp
+*.dump
+*.crash
+
+## Docker
+.docker_temp/
