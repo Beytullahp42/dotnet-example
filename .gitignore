@@ -65,3 +65,6 @@ project.assets.json
 
 ## Docker
 .docker_temp/
+
+## Temps
+.dotnet_temp/

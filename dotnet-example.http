@@ -1,6 +1,38 @@
 @dotnet_example_HostAddress = http://localhost:5274
 
-GET {{dotnet_example_HostAddress}}/weatherforecast/
+### 1. Get all products
+GET {{dotnet_example_HostAddress}}/api/product
 Accept: application/json
+
+### 2. Create a new product
+POST {{dotnet_example_HostAddress}}/api/product
+Content-Type: application/json
+
+{
+  "name": "Mechanical Keyboard",
+  "description": "Wireless mechanical keyboard with RGB backlighting",
+  "price": 89.99,
+  "stock": 15
+}
+
+### 3. Get product by ID
+GET {{dotnet_example_HostAddress}}/api/product/1
+Accept: application/json
+
+### 4. Update an existing product
+# Note: In your Update method, id in URL must match id in body
+PUT {{dotnet_example_HostAddress}}/api/product/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Mechanical Keyboard Pro",
+  "description": "Wireless mechanical keyboard with RGB backlighting and hot-swap switches",
+  "price": 109.99,
+  "stock": 10
+}
+
+### 5. Delete a product by ID
+DELETE {{dotnet_example_HostAddress}}/api/product/1
 
 ###

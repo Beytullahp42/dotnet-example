@@ -1,0 +1,3 @@
+[*.cs]
+dotnet_diagnostic.CDT1003.severity = none
+dotnet_diagnostic.RCS1173.severity = silent
