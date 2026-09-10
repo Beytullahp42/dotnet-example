@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SignalR Chat Test</title>
+</head>
+<body style="font-family: sans-serif; padding: 20px;">
+    <h2>SignalR Chat Test</h2>
+    <input id="userInput" placeholder="Your name" value="User1" />
+    <input id="messageInput" placeholder="Message" />
+    <button onclick="send()">Send</button>
+
+    <ul id="messagesList" style="margin-top: 20px;"></ul>
+
+    <!-- Official Microsoft SignalR JavaScript Client -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.7/signalr.min.js"></script>
+    <script>
+        // Connect to your hub endpoint at /chat
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/chat")
+            .withAutomaticReconnect()
+            .build();
+
+        // Listen for messages broadcasted by ChatHub
+        connection.on("ReceiveMessage", (user, message) => {
+            const li = document.createElement("li");
+            li.textContent = `${user}: ${message}`;
+            document.getElementById("messagesList").appendChild(li);
+        });
+
+        // Start connection
+        connection.start()
+            .then(() => console.log("Connected to ChatHub!"))
+            .catch(err => console.error("Connection error: ", err));
+
+        // Call SendMessage on the server
+        function send() {
+            const user = document.getElementById("userInput").value;
+            const message = document.getElementById("messageInput").value;
+            
+            // Invokes the "SendMessage" C# method on ChatHub.cs
+            connection.invoke("SendMessage", user, message);
+            document.getElementById("messageInput").value = "";
+        }
+    </script>
+</body>
+</html>

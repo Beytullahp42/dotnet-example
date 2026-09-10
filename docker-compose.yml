@@ -1,13 +1,24 @@
 services:
   app:
     container_name: dotnet-example-app
+
     build:
       context: .
       dockerfile: Dockerfile
+
     ports:
       - "${APP_PORT:-8080}:8080"
+
     environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Development}
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+
+      ConnectionStrings__DefaultConnection: >-
+        Host=db;
+        Port=5432;
+        Database=${POSTGRES_DB:-appdb};
+        Username=${POSTGRES_USER:-postgres};
+        Password=${POSTGRES_PASSWORD:-postgres}
+
     depends_on:
       db:
         condition: service_healthy
@@ -15,17 +26,26 @@ services:
   db:
     image: postgres:17-alpine
     container_name: dotnet-example-db
+
     restart: unless-stopped
+
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-appdb}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+
     ports:
       - "${DB_PORT:-5432}:5432"
+
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-appdb}"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-appdb}"
+        ]
       interval: 5s
       timeout: 5s
       retries: 5

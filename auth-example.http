@@ -1,0 +1,46 @@
+@dotnet_example_HostAddress = http://localhost:5274
+
+### 1. Register a new user
+POST {{dotnet_example_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Password123!"
+}
+
+### 2. Login to get a Bearer Token
+POST {{dotnet_example_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Password123!"
+}
+
+### 3. Nonexistent user login
+POST {{dotnet_example_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test2@example.com",
+  "password": "Password123!"
+}
+
+### 4. Login with wrong password
+POST {{dotnet_example_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "WrongPassword"
+}
+
+### 5. Register using existing user's email
+POST {{dotnet_example_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "Password123!"
+}
